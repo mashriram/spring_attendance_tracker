@@ -1,10 +1,16 @@
 package com.shri.attendance_tracker.models;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity()
 public class Kaksha {
@@ -24,6 +30,19 @@ public class Kaksha {
 
   @Column
   private int year;
+
+  @Column
+  @ManyToMany
+  @JoinTable(name = "Class_Subjects", joinColumns = @JoinColumn(name = "kaksha_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
+  private List<Subject> subjects;
+
+  public List<Subject> getSubjects() {
+    return subjects;
+  }
+
+  public void setSubjects(List<Subject> subjects) {
+    this.subjects = subjects;
+  }
 
   public String getId() {
     return id;

@@ -1,10 +1,13 @@
 package com.shri.attendance_tracker.models;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity()
 public class Subject {
@@ -30,6 +33,18 @@ public class Subject {
 
   @Column
   private String regulation;
+
+  @Column
+  @ManyToMany(mappedBy = "subjects")
+  private List<Kaksha> kaksha;
+
+  public List<Kaksha> getKaksha() {
+    return kaksha;
+  }
+
+  public void setKaksha(List<Kaksha> kaksha) {
+    this.kaksha = kaksha;
+  }
 
   public String getId() {
     return id;
