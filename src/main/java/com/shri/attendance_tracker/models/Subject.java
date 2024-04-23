@@ -2,12 +2,15 @@ package com.shri.attendance_tracker.models;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity()
 public class Subject {
@@ -35,8 +38,12 @@ public class Subject {
   private String regulation;
 
   @Column
-  @ManyToMany(mappedBy = "subjects")
+  @ManyToMany(mappedBy = "subjects", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   private List<Kaksha> kaksha;
+
+  @Column
+  @OneToMany(mappedBy = "subject")
+  private List<TimeTable> timeTables;
 
   public List<Kaksha> getKaksha() {
     return kaksha;

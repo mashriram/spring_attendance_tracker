@@ -1,12 +1,16 @@
 package com.shri.attendance_tracker.models;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class TimeTable {
@@ -24,11 +28,22 @@ public class TimeTable {
   @Column
   private Date endTime;
 
-  @Column
-  private String classId;
+  // @Column
+  // private String classId;
 
-  @Column
-  private String subjectId;
+  // @Column
+  // private String subjectId;
+
+  @ManyToOne
+  @JoinColumn(name = "kaksha_id")
+  private Kaksha kaksha;
+
+  @ManyToOne
+  @JoinColumn(name = "subject_id")
+  private Subject subject;
+
+  @OneToMany(mappedBy = "timeTable")
+  private List<Attendance> attendances;
 
   public String getId() {
     return id;
@@ -62,20 +77,20 @@ public class TimeTable {
     this.endTime = endTime;
   }
 
-  public String getClassId() {
-    return classId;
+  public Kaksha getKaksha() {
+    return kaksha;
   }
 
-  public void setClassId(String classId) {
-    this.classId = classId;
+  public void setKaksha(Kaksha kaksha) {
+    this.kaksha = kaksha;
   }
 
-  public String getSubjectId() {
-    return subjectId;
+  public Subject getSubject() {
+    return subject;
   }
 
-  public void setSubjectId(String subjectId) {
-    this.subjectId = subjectId;
+  public void setSubject(Subject subject) {
+    this.subject = subject;
   }
 
 }

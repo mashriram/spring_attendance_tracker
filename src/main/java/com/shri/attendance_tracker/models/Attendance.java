@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Attendance {
@@ -16,17 +18,36 @@ public class Attendance {
   @Column()
   private Date date;
   @Column()
-  private boolean presence;
+  private String presence;
   @Column()
   private Date arrivalTime;
-  @Column()
-  private String studentId;
-  @Column()
-  private String subjectId;
+
   @Column()
   private int dayOrder;
-  @Column()
-  private String timeTableId;
+
+  @ManyToOne
+  @JoinColumn(name = "timetable_id")
+  private TimeTable timeTable;
+
+  @ManyToOne
+  @JoinColumn(name = "student_id")
+  private Student student;
+
+  public TimeTable getTimeTable() {
+    return timeTable;
+  }
+
+  public void setTimeTable(TimeTable timeTable) {
+    this.timeTable = timeTable;
+  }
+
+  public Student getStudent() {
+    return student;
+  }
+
+  public void setStudent(Student student) {
+    this.student = student;
+  }
 
   public String getId() {
     return id;
@@ -44,11 +65,11 @@ public class Attendance {
     this.date = date;
   }
 
-  public boolean isPresence() {
+  public String getPresence() {
     return presence;
   }
 
-  public void setPresence(boolean presence) {
+  public void setPresence(String presence) {
     this.presence = presence;
   }
 
@@ -60,36 +81,12 @@ public class Attendance {
     this.arrivalTime = arrivalTime;
   }
 
-  public String getStudentId() {
-    return studentId;
-  }
-
-  public void setStudentId(String studentId) {
-    this.studentId = studentId;
-  }
-
-  public String getSubjectId() {
-    return subjectId;
-  }
-
-  public void setSubjectId(String subjectId) {
-    this.subjectId = subjectId;
-  }
-
   public int getDayOrder() {
     return dayOrder;
   }
 
   public void setDayOrder(int dayOrder) {
     this.dayOrder = dayOrder;
-  }
-
-  public String getTimeTableId() {
-    return timeTableId;
-  }
-
-  public void setTimeTableId(String timeTableId) {
-    this.timeTableId = timeTableId;
   }
 
 }

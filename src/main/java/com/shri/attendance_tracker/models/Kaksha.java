@@ -2,6 +2,7 @@ package com.shri.attendance_tracker.models;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity()
 public class Kaksha {
@@ -32,9 +34,17 @@ public class Kaksha {
   private int year;
 
   @Column
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @JoinTable(name = "Class_Subjects", joinColumns = @JoinColumn(name = "kaksha_id"), inverseJoinColumns = @JoinColumn(name = "subject_id"))
   private List<Subject> subjects;
+
+  @Column
+  @OneToMany(mappedBy = "kaksha")
+  private List<Student> students;
+
+  @Column
+  @OneToMany(mappedBy = "kaksha")
+  private List<TimeTable> timeTables;
 
   public List<Subject> getSubjects() {
     return subjects;
